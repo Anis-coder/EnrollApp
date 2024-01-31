@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "EnrollMent";
+}
+@model EnrollMent
+<h1>Enroll User To Course</h1>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chosen/1.1.0/chosen.css"/>
+<script src="//cdn.jsdelivr.net/chosen/1.1.0/chosen.jquery.js"></script>
+
+<div class="text-left">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="EnrollMent">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <span class="row-cols-md-3 text-danger">*</span><label asp-for="StartDate" class="row-cols-md-3"></label>
+                    <input asp-for="StartDate" class="row-cols-md-3" style="margin-left:15px" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <label asp-for="EndDate" class="row-cols-md-3"></label>
+                    <input asp-for="EndDate" class="row-cols-md-3" style="margin-left:25px" type="date" />
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <span class="row-cols-md-3 text-danger">*</span> @Html.Label("Course")
+                    @Html.DropDownListFor(x=> x.CourseIds, Model.Courses?.Select(dt => new SelectListItem{Text=dt.Name, Value=dt.CourseId.ToString()}), "Select Course" , 
+                    new { @class = "row-cols-md-3 chosen-select", style="margin-left:15px", @multiple=true } )
+                    @Html.ValidationMessageFor(model => model.CourseIds,"Please Select Course",new {@class = "text-danger"})
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <span class="row-cols-md-3 text-danger">*</span> @Html.Label("User")
+                    @Html.DropDownListFor(x=> x.UserId, Model.Users?.Select(dt => new SelectListItem{Text=dt.firstName, Value=dt.Id.ToString()}), "Select User" ,
+                    new { @class = "row-cols-md-3 chosen-select" } )
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <input type="submit" value="Save User Details" class="btn btn-primary" />
+                </div>
+                <b>@ViewBag.message</b>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<script>
+    $('.chosen-select').chosen();
+</script>
+

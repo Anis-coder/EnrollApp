@@ -1,0 +1,42 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Add User</h2>
+
+<div class="text-left">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <span class="row-cols-md-3 text-danger">*</span><label asp-for="firstName" class="row-cols-md-3"></label>
+                    <input asp-for="firstName" class="row-cols-md-3" style="margin-left:24px" />
+                    <span asp-validation-for="firstName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <span class="row-cols-md-3 text-danger">*</span><label asp-for="lastName" class="row-cols-md-3"></label>
+                    <input asp-for="lastName" class="row-cols-md-3" style="margin-left:24px" />
+                    <span asp-validation-for="lastName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <span class="row-cols-md-3 text-danger">*</span><label asp-for="dob" class="row-cols-md-3"></label>
+                    <input asp-for="dob" class="row-cols-md-3" style="margin-left:10px" type="date" />
+                    <span asp-validation-for="dob" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="padding-top:15px">
+                    <input type="submit" value="Save User Details" class="btn btn-primary" />
+                </div>
+                <b>@ViewBag.message</b>
+            </form>
+        </div>
+    </div>
+   
+</div>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
